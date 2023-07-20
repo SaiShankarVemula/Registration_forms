@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from app.models import *
 from app.forms import *
+from django.core.mail import send_mail
 
 # Create your views here.
 
@@ -21,6 +22,10 @@ def Registration(request):
             nspfd=pfd.save(commit=False)
             nspfd.username=nsusfd
             nspfd.save()
+
+            send_mail('Registration',
+                      'Congratulations! You have successfully registered on the Django application',
+                      'whateveritmaybe000@gmail.com',[nsusfd.email],fail_silently=True)
 
             return HttpResponse('Data Submitted succefully')
 
