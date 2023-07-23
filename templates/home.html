@@ -1,0 +1,30 @@
+{% extends 'dummy.html' %}
+
+{% block title %}
+    <title>Home</title>
+{% endblock %}
+
+{% block body_block %}
+
+  <style>
+    body{
+      background-color: antiquewhite;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_sukNRQKIHLwJjiJ4HIclO2A-EVCx_Py1Gw&usqp=CAU')
+      
+    }
+  </style>
+
+  <center> 
+     
+    {% if username %}
+        <h1>Welcome to Home Page MR/MS {{username}}</h1>
+    {% else %}
+        <h1>Welcome To  Home Page</h1>
+    {% endif %}
+
+  </center>
+
+
+{% endblock %}
