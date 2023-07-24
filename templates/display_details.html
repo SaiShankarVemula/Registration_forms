@@ -1,0 +1,21 @@
+{% extends 'dummy.html' %}
+
+{% block title %}
+    <title>Details</title>
+{% endblock %}
+
+{% block body_block %}
+    <center>
+        <form method="POST">
+            {% csrf_token %}
+            
+            <h2>username : <b>{{uo.username}}</b></h2>
+            <h2>Email : <b>{{uo.email}}</b> </h2>
+            <h2>Address :{{po.address}} </h2>
+            <h2> Profile picture :
+            <img src="{{po.profile_pic.url}}" alt="Image not found" srcset="" height="200px" width="300px"></h2>
+            
+        </form>
+    </center>
+
+{% endblock %}
