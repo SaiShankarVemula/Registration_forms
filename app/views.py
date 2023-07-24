@@ -15,7 +15,7 @@ def Registration(request):
     pdata=Profileform()  ## collect Profile form data
     d={'udata':udata,'pdata':pdata} # to display the forms in FE
     if request.method=='POST' and request.FILES: 
-        usfd=Userform(request.POST)   ## In useform v r having only data so v use only request.POST
+        usfd=Userform(request.POST)   ## In userform v r having only data so v use only request.POST
         pfd=Profileform(request.POST,request.FILES) # In Profile form v r having both data&images/files so v use both request.POST, request.FILES
         if usfd.is_valid() and pfd.is_valid():  # checking both data valid or not
             nsusfd=usfd.save(commit=False)  # it collects data but not save now
@@ -68,3 +68,23 @@ def userlogin(request):
 def userlogout(request):
     logout(request)
     return HttpResponseRedirect(reverse('home'))
+
+@login_required
+def display_details(request):
+    username=request.session.get('username')  ## getting details from the sesssion 
+    uo=User.objects.get(username=username)   ## get details of username using quesry set
+    po=Profile.objects.get(username=uo)  
+    d={'uo':uo,'po':po}
+    return render(request,'display_details.html',d)
+
+@login_required
+def changepassword(request):
+    if request.method=='POST':
+        password=request.POST['password']
+        username=request.session.get('username')
+        uo=User.objects.get(username=username)
+        uo.set_password(password)
+        uo.save()
+        return HttpResponse('password change succesfully')
+    return render(request,'changepassword.html')
+
