@@ -88,3 +88,16 @@ def changepassword(request):
         return HttpResponse('password change succesfully')
     return render(request,'changepassword.html')
 
+def reset_password(request):
+    if request.method=='POST':
+        un=request.POST['un']
+        pw=request.POST['pw']
+        luo=User.objects.filter(username=un)
+        if luo:
+            uo=luo[0]
+            uo.set_password(pw)
+            uo.save()
+            return HttpResponse('Reset password is Done')
+        else:
+            return HttpResponse('Invalid user details')
+    return render(request,'reset_password.html')
